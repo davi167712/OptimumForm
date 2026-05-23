@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OptimumForm — Catálogo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .page-hero { position: relative; padding: 90px 5% 52px; overflow: hidden; background: #0d0d0d; border-bottom: 1px solid #1a1a1a; }
+    .page-hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,200,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,200,255,0.03) 1px, transparent 1px); background-size: 40px 40px; }
+    .page-hero-content { position: relative; z-index: 1; }
+    .page-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 8vw, 80px); letter-spacing: 5px; color: #fff; line-height: 1; margin-bottom: 12px; }
+    .page-sub { font-size: 14px; color: #666; max-width: 500px; line-height: 1.7; }
+
+    .filter-bar { display: flex; gap: 8px; padding: 20px 5%; border-bottom: 1px solid #1a1a1a; flex-wrap: wrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .filter-bar::-webkit-scrollbar { display: none; }
+    .filter-btn { background: transparent; color: #777; border: 1px solid #1e1e1e; padding: 8px 18px; font-family: 'DM Sans', sans-serif; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; border-radius: 4px; transition: all 0.2s; white-space: nowrap; flex-shrink: 0; }
+    .filter-btn:hover, .filter-btn.active { background: #00c8ff; color: #000; border-color: #00c8ff; }
+
+    .catalog-section { padding: 52px 5%; }
+    .catalog-section + .catalog-section { padding-top: 0; }
+
+    .cat-label { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+    .cat-label h2 { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 2px; color: #f0f0f0; white-space: nowrap; }
+    .cat-label::after { content: ''; flex: 1; height: 1px; background: #1e1e1e; }
+
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+
+    .card { background: #111; border: 1px solid #1e1e1e; border-radius: 10px; overflow: hidden; transition: border-color 0.2s, transform 0.2s; }
+    .card:hover { border-color: rgba(0,200,255,0.25); transform: translateY(-4px); }
+    .card img { width: 100%; height: 200px; object-fit: cover; display: block; filter: brightness(0.85); transition: filter 0.3s; }
+    .card:hover img { filter: brightness(1); }
+    .card-body { padding: 18px; }
+    .card-tag { font-size: 10px; color: #00c8ff; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+    .card-name { font-size: 15px; font-weight: 500; color: #f0f0f0; margin-bottom: 6px; }
+    .card-desc { font-size: 12px; color: #666; line-height: 1.6; margin-bottom: 16px; }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; border-top: 1px solid #1a1a1a; }
+    .card-price { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: #00c8ff; letter-spacing: 1px; }
+    .card-btn { background: rgba(0,200,255,0.1); color: #00c8ff; border: 1px solid rgba(0,200,255,0.2); padding: 7px 16px; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; border-radius: 4px; font-family: 'DM Sans', sans-serif; transition: background 0.2s; }
+    .card-btn:hover { background: rgba(0,200,255,0.2); }
+
+    .divider { height: 1px; background: #161616; margin: 0 5%; }
+
+    @media (max-width: 768px) {
+      .cards-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .card img { height: 160px; }
+      .page-hero { padding: 72px 5% 40px; }
+    }
+
+    @media (max-width: 480px) {
+      .cards-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .card img { height: 140px; }
+      .card-body { padding: 12px; }
+      .card-name { font-size: 13px; }
+      .card-desc { display: none; }
+      .card-price { font-size: 18px; }
+      .card-btn { padding: 6px 10px; font-size: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="inicio.html">OptimumForm</a>
+  <nav>
+    <a href="inicio.html">Inicio</a>
+    <a href="catalogo.html" class="active">Catálogo</a>
+    <a href="herramientas.html">Herramientas</a>
+  </nav>
+  <button class="menu-toggle" id="menuToggle" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="inicio.html">Inicio</a>
+  <a href="catalogo.html" class="active">Catálogo</a>
+  <a href="herramientas.html">Herramientas</a>
+</div>
+
+<div class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-content">
+    <div class="section-label">Productos</div>
+    <h1 class="page-title">CATÁLOGO<br>COMPLETO</h1>
+    <p class="page-sub">Todo lo que necesitas para llevar tu entrenamiento al siguiente nivel. Calidad de alto rendimiento en cada producto.</p>
+  </div>
+</div>
+
+<div class="filter-bar">
+  <button class="filter-btn active" data-cat="all">Todos</button>
+  <button class="filter-btn" data-cat="suplementos">Suplementos</button>
+  <button class="filter-btn" data-cat="accesorios">Accesorios</button>
+  <button class="filter-btn" data-cat="ropa">Ropa Fitness</button>
+</div>
+
+<!-- SUPLEMENTOS -->
+<section class="catalog-section" data-section="suplementos">
+  <div class="cat-label"><h2>SUPLEMENTOS</h2></div>
+  <div class="cards-grid">
+
+    <div class="card" data-cat="suplementos">
+      <img src="whey.png" alt="Proteína Whey">
+      <div class="card-body">
+        <div class="card-tag">Proteína</div>
+        <div class="card-name">Whey Protein Premium</div>
+        <p class="card-desc">25g de proteína por porción. Fórmula de absorción rápida ideal post-entrenamiento.</p>
+        <div class="card-footer">
+          <div class="card-price">49,99 €</div>
+          <button class="card-btn">Ver más</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-cat="suplementos">
+      <img src="creatina.png" alt="Creatina">
+      <div class="card-body">
+        <div class="card-tag">Fuerza</div>
+        <div class="card-name">Creatina Monohidrato</div>
+        <p class="card-desc">Mejora la fuerza y resistencia muscular. 100% pura, sin aditivos.</p>
+        <div class="card-footer">
+          <div class="card-price">29,99 €</div>
+          <button class="card-btn">Ver más</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-cat="suplementos">
+      <img src="pretreno.png" alt="Pre-Entreno">
+      <div class="card-body">
+        <div class="card-tag">Energía</div>
+        <div class="card-name">Pre-Entreno Extreme</div>
+        <p class="card-desc">Máxima energía y foco para sesiones de alta intensidad.</p>
+        <div class="card-footer">
+          <div class="card-price">39,99 €</div>
+          <button class="card-btn">Ver más</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ACCESORIOS -->
+<section class="catalog-section" data-section="accesorios">
+  <div class="cat-label"><h2>ACCESORIOS</h2></div>
+  <div class="cards-grid">
+
+    <div class="card" data-cat="accesorios">
+      <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&q=80" alt="Guantes">
+      <div class="card-body">
+        <div class="card-tag">Protección</div>
+        <div class="card-name">Guantes de Entrenamiento</div>
+        <p class="card-desc">Agarre mejorado y protección para las manos durante el levantamiento.</p>
+        <div class="card-footer">
+          <div class="card-price">24,99 €</div>
+          <button class="card-btn">Ver más</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-cat="accesorios">
+      <img src="straps.png" alt="Straps">
+      <div class="card-body">
+        <div class="card-tag">Soporte</div>
+        <div class="card-name">Straps de Muñeca</div>
+        <p class="card-desc">Mayor estabilidad en ejercicios de empuje y tirón con cargas pesadas.</p>
+        <div class="card-footer">
+          <div class="card-price">19,99 €</div>
+          <button class="card-btn">Ver más</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-cat="accesorios">
+      <img src="cinturon.png" alt="Cinturón">
+      <div class="card-body">
+        <div class="card-tag">Lumbar</div>
+        <div class="card-name">Cinturón Lumbar</div>
+        <p class="card-desc">Protección de la zona lumbar para sentadillas y peso muerto.</p>
+        <div class="card-footer">
+          <div class="card-price">34,99 €</div>
+          <button class="card-btn">Ver más</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-cat="accesorios">
+      <img src="garrafa.png" alt="Botella de Agua">
+      <div class="card-body">
+        <div class="card-tag">Hidratación</div>
+        <div class="card-name">Botella de Agua 2L</div>
+        <p class="card-desc">Botella de gran capacidad para mantenerte hidratado durante todo el entrenamiento.</p>
+        <div class="card-footer">
+          <div class="card-price">14,99 €</div>
+          <button class="card-btn">Ver más</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ROPA FITNESS -->
+<section class="catalog-section" data-section="ropa">
+  <div class="cat-label"><h2>ROPA FITNESS</h2></div>
+  <div class="cards-grid">
+
+    <div class="card" data-cat="ropa">
+      <img src="camiseta.png" alt="Camiseta Dry-Fit">
+      <div class="card-body">
+        <div class="card-tag">Indumentaria</div>
+        <div class="card-name">Camiseta Dry-Fit</div>
+        <p class="card-desc">Tejido transpirable de secado rápido, ideal para entrenamientos intensos.</p>
+        <div class="card-footer">
+          <div class="card-price">29,99 €</div>
+          <button class="card-btn">Ver más</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-cat="ropa">
+      <img src="shorts.png" alt="Shorts de Entrenamiento">
+      <div class="card-body">
+        <div class="card-tag">Indumentaria</div>
+        <div class="card-name">Shorts de Entrenamiento</div>
+        <p class="card-desc">Máxima libertad de movimiento con material elástico de alta resistencia.</p>
+        <div class="card-footer">
+          <div class="card-price">34,99 €</div>
+          <button class="card-btn">Ver más</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" data-cat="ropa">
+      <img src="leggings.png" alt="Leggings de Compresión">
+      <div class="card-body">
+        <div class="card-tag">Indumentaria</div>
+        <div class="card-name">Leggings de Compresión</div>
+        <p class="card-desc">Soporte muscular y compresión para mayor rendimiento y recuperación.</p>
+        <div class="card-footer">
+          <div class="card-price">44,99 €</div>
+          <button class="card-btn">Ver más</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">OptimumForm</div>
+  <div class="footer-copy">© 2026 OptimumForm — Todos los derechos reservados</div>
+</footer>
+
+<script>
+  // Hamburger
+  const toggle = document.getElementById('menuToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+  });
+
+  // Filtros
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const sections = document.querySelectorAll('.catalog-section');
+  const dividers = document.querySelectorAll('.divider');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.dataset.cat;
+      sections.forEach(sec => { sec.style.display = cat === 'all' || sec.dataset.section === cat ? '' : 'none'; });
+      dividers.forEach(d => d.style.display = cat === 'all' ? '' : 'none');
+    });
+  });
+</script>
+
+</body>
+</html>

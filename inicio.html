@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OptimumForm — Inicio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .hero { position: relative; min-height: 92vh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600&q=80'); background-size: cover; background-position: center; filter: brightness(0.3); }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(10,10,10,0.9) 100%); }
+    .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,200,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,200,255,0.04) 1px, transparent 1px); background-size: 40px 40px; }
+    .hero-content { position: relative; z-index: 2; padding: 0 20px; }
+    .hero-tag { display: inline-block; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #00c8ff; border: 1px solid rgba(0,200,255,0.3); padding: 5px 18px; border-radius: 20px; margin-bottom: 28px; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px, 9vw, 100px); line-height: 0.95; letter-spacing: 5px; color: #fff; margin-bottom: 24px; }
+    .hero-title span { color: #00c8ff; }
+    .hero-sub { font-size: 15px; color: #aaa; max-width: 560px; margin: 0 auto 36px; line-height: 1.7; }
+    .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    .stats-bar { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #1e1e1e; border-bottom: 1px solid #1e1e1e; }
+    .stat { padding: 24px 12px; text-align: center; background: #0d0d0d; border-right: 1px solid #1e1e1e; }
+    .stat:last-child { border-right: none; }
+    .stat-number { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: #00c8ff; letter-spacing: 2px; line-height: 1; }
+    .stat-label { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 5px; }
+
+    .preview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .preview-card { background: #111; border: 1px solid #1e1e1e; border-radius: 10px; overflow: hidden; transition: border-color 0.2s, transform 0.2s; text-decoration: none; display: block; }
+    .preview-card:hover { border-color: rgba(0,200,255,0.3); transform: translateY(-4px); }
+    .preview-card img { width: 100%; height: 180px; object-fit: cover; display: block; filter: brightness(0.8); transition: filter 0.3s; }
+    .preview-card:hover img { filter: brightness(1); }
+    .preview-body { padding: 18px; }
+    .preview-tag { font-size: 10px; color: #00c8ff; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+    .preview-name { font-size: 16px; font-weight: 500; color: #f0f0f0; margin-bottom: 6px; }
+    .preview-desc { font-size: 12px; color: #666; line-height: 1.5; }
+
+    .about-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+    .about-img { width: 100%; height: 380px; object-fit: cover; border-radius: 10px; filter: brightness(0.8); }
+    .about-body { font-size: 14px; color: #777; line-height: 1.8; margin-bottom: 28px; }
+
+    .cta-section { background: #05121a; border-top: 1px solid #0d2a3a; border-bottom: 1px solid #0d2a3a; text-align: center; padding: 80px 5%; position: relative; overflow: hidden; }
+    .cta-section::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(0,200,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,200,255,0.03) 1px, transparent 1px); background-size: 32px 32px; }
+    .cta-section > * { position: relative; }
+    .cta-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(32px, 6vw, 52px); letter-spacing: 4px; color: #fff; margin-bottom: 12px; }
+    .cta-sub { font-size: 14px; color: #666; margin-bottom: 32px; }
+
+    @media (max-width: 768px) {
+      .about-wrap { grid-template-columns: 1fr; gap: 28px; }
+      .about-img { height: 240px; }
+      .hero-sub { font-size: 14px; }
+      .stat-number { font-size: 28px; }
+      .stat-label { font-size: 9px; letter-spacing: 0.8px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero { min-height: 85vh; }
+      .hero-tag { font-size: 9px; letter-spacing: 2px; padding: 4px 14px; }
+      .preview-grid { grid-template-columns: 1fr; }
+      .stats-bar { grid-template-columns: repeat(3,1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="inicio.html">OptimumForm</a>
+  <nav>
+    <a href="inicio.html" class="active">Inicio</a>
+    <a href="catalogo.html">Catálogo</a>
+    <a href="herramientas.html">Herramientas</a>
+  </nav>
+  <button class="menu-toggle" id="menuToggle" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="inicio.html" class="active">Inicio</a>
+  <a href="catalogo.html">Catálogo</a>
+  <a href="herramientas.html">Herramientas</a>
+</div>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Performance · Disciplina · Progresión</div>
+    <h1 class="hero-title">SUPERA TU<br><span>MEJOR VERSIÓN</span></h1>
+    <p class="hero-sub">Suplementos deportivos, accesorios fitness y herramientas digitales orientadas al rendimiento, la progresión física y el bienestar.</p>
+    <div class="hero-btns">
+      <a href="catalogo.html" class="btn-primary">Explorar catálogo</a>
+      <a href="herramientas.html" class="btn-ghost">Herramientas</a>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-number">+500</div><div class="stat-label">Clientes activos</div></div>
+  <div class="stat"><div class="stat-number">30+</div><div class="stat-label">Productos premium</div></div>
+  <div class="stat"><div class="stat-number">98%</div><div class="stat-label">Satisfacción</div></div>
+</div>
+
+<section>
+  <div class="section-label">Destacados</div>
+  <h2 class="section-title">LO MÁS POPULAR</h2>
+  <p class="section-sub">Nuestros productos más elegidos por los atletas.</p>
+  <div class="preview-grid">
+    <a href="catalogo.html" class="preview-card">
+      <img src="https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=600&q=80" alt="Suplementos">
+      <div class="preview-body">
+        <div class="preview-tag">Rendimiento</div>
+        <div class="preview-name">Suplementos</div>
+        <p class="preview-desc">Proteínas, creatina y pre-entrenos para la recuperación muscular.</p>
+      </div>
+    </a>
+    <a href="catalogo.html" class="preview-card">
+      <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600&q=80" alt="Accesorios">
+      <div class="preview-body">
+        <div class="preview-tag">Equipamiento</div>
+        <div class="preview-name">Accesorios</div>
+        <p class="preview-desc">Guantes, straps y accesorios para mayor seguridad.</p>
+      </div>
+    </a>
+    <a href="catalogo.html" class="preview-card">
+      <img src="banner_ropa.png" alt="Ropa Fitness">
+      <div class="preview-body">
+        <div class="preview-tag">Indumentaria</div>
+        <div class="preview-name">Ropa Fitness</div>
+        <p class="preview-desc">Prendas cómodas y resistentes para entrenar al máximo.</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section>
+  <div class="about-wrap">
+    <img class="about-img" src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?w=800&q=80" alt="Sobre OptimumForm">
+    <div>
+      <div class="section-label">Nuestra marca</div>
+      <h2 class="section-title">SOBRE OPTIMUMFORM</h2>
+      <p class="about-body">Somos una marca centrada en el rendimiento, la disciplina y la mejora constante. Creemos que cada atleta merece herramientas de calidad para alcanzar su máximo potencial, sin importar su nivel de experiencia.<br><br>Desde suplementos hasta herramientas digitales, todo lo que ofrecemos está diseñado con un único objetivo: ayudarte a superar tu mejor versión.</p>
+      <a href="catalogo.html" class="btn-primary">Ver catálogo</a>
+    </div>
+  </div>
+</section>
+
+<div class="cta-section">
+  <div class="section-label">Empieza hoy</div>
+  <h2 class="cta-title">¿LISTO PARA EMPEZAR?</h2>
+  <p class="cta-sub">Únete a más de 500 atletas que ya entrenan con OptimumForm.</p>
+  <a href="catalogo.html" class="btn-primary">Comenzar ahora</a>
+</div>
+
+<footer>
+  <div class="footer-logo">OptimumForm</div>
+  <div class="footer-copy">© 2026 OptimumForm — Todos los derechos reservados</div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('menuToggle');
+  const mobileNav = document.getElementById('mobileNav');
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>
